@@ -19,7 +19,12 @@
 
                         {
                             name = "ProtonMail";
-                            url = "https://mail.proton.me/u/0/inbox";
+                            url = "https://mail.proton.me";
+                        }
+
+                        {
+                            name = "Gmail";
+                            url = "https://mail.google.com/mail/u/0/#inbox";
                         }
 
                         {
@@ -99,7 +104,7 @@
                     "Home Manager Options" = {
                         urls = [
                             {
-                                template = "https://home-manager-options.extranix.com/";
+                                template = "https://home-manager-options.extranix.com";
                                 params = [
                                     {
                                         name = "type";
@@ -115,6 +120,27 @@
 
                         icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
                         definedAliases = [ "@ho" ];
+                    };
+
+                    "ProtonDB Games" = {
+                        urls = [
+                            {
+                                template = "https://www.protondb.com/search?";
+                                params = [
+                                    {
+                                        name = "type";
+                                        value = "games";
+                                    }
+                                    {
+                                        name = "q";
+                                        value = "{searchTerms}";
+                                    }
+                                ];
+                            }
+                        ];
+
+                        icon = "${pkgs.super-tiny-icons}/share/icons/SuperTinyIcons/svg/steam.svg";
+                        definedAliases = [ "@pg" ];
                     };
 
                     "Wikipedia (en)".metaData.hidden = true;

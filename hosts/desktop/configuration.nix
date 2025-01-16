@@ -14,33 +14,23 @@
         ../../scripts/nixosUpgrade.nix
 
         ../../modules/programs/shell/zsh.nix
-
         ../../modules/programs/shell/zoxide.nix
         ../../modules/programs/shell/fastfetch.nix
-
         ../../modules/programs/textEditor/nixvim/nixvim.nix
-
-        ../../modules/desktop/windowManager/hyprland.nix
-        ../../modules/desktop/xdg.nix
-
         ../../modules/programs/utility/deskExec.nix
-
         ../../modules/programs/terminal/kitty.nix
-
         ../../modules/programs/fileManager/nautilus.nix
         ../../modules/programs/webBrowser/firefox.nix
         ../../modules/programs/video/vlc.nix
         ../../modules/programs/video/obs.nix
-
         ../../modules/programs/communication/discord.nix
-
-        ../../modules/programs/gaming/steam.nix
-        ../../modules/programs/gaming/prismlauncher.nix
-        ../../modules/programs/gaming/gamemode.nix
-        ../../modules/programs/gaming/mangohud.nix
-        ../../modules/programs/gaming/gamescope.nix
-
+        ../../modules/programs/gaming/gaming.nix
         ../../modules/programs/virualisation/virtManager.nix
+
+        ../../modules/desktop/xdg.nix
+        ../../modules/desktop/displayManager/sddm.nix
+        ../../modules/desktop/desktopEnvironment/plasma.nix
+        ../../modules/desktop/windowManager/hyprland.nix
 
         # Configurable
         ../../modules/audio/audio.nix
@@ -56,6 +46,13 @@
         exec = "gamemoderun mangohud --dlsym prismlauncher %U";
         genericName = "minecraft";
         settings.Keywords = "game;minecraft;mc";
+    };
+
+    hm.xdg.desktopEntries.steam = {
+        name = "steam";
+        exec = "gamemoderun mangohud steam %U";
+        genericName = "steam";
+        settings.Keywords = "game;valve;steam";
     };
 
     audio = {
@@ -92,7 +89,6 @@
             };
     };
 
-    # Switch to Disko if I ever get another NVME for game storage
     fileSystems =
         let
             options = [
@@ -104,22 +100,23 @@
         {
             "/" = {
                 label = "ROOT";
-                fsType = "ext4";
+                fsType = "bcachefs";
             };
 
             "/boot" = {
                 label = "BOOT";
                 fsType = "vfat";
-            };
-
-            "/mnt/wdb1" = {
-                label = "WDB1";
-                fsType = "ext4";
-                options = options;
+                options = [ "umask=0077" ];
             };
 
             "/mnt/games" = {
                 label = "GAMES";
+                fsType = "bcachefs";
+                options = options;
+            };
+
+            "/mnt/wdb1" = {
+                label = "WDB1";
                 fsType = "ext4";
                 options = options;
             };

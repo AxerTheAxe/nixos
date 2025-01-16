@@ -12,10 +12,10 @@ in
         module = ./desktop/configuration.nix;
 
         system = {
-            hostName = "desktop";
+            hostName = "nixos-desktop";
             platform = "x86_64-linux";
             timeZone = "America/Denver";
-            installVersion = "24.11";
+            installVersion = "25.05";
             trashFrequency = "14d";
         };
 

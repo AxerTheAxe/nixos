@@ -2,15 +2,32 @@
 {
     services.xserver = {
         enable = true;
-
         desktopManager.gnome.enable = true;
-        displayManager.gdm = {
-            enable = true;
-            wayland = true;
-        };
     };
 
     environment.gnome.excludePackages = with pkgs; [
+        orca
+        evince
+        file-roller
+        geary
+        gnome-disk-utility
+        seahorse
+        sushi
+        sysprof
+        gnome-shell-extensions
+        adwaita-icon-theme
+        gnome-backgrounds
+        gnome-bluetooth
+        gnome-color-manager
+        gnome-control-center
+        gnome-shell-extensions
+        gnome-tour
+        gnome-user-docs
+        glib
+        gnome-menus
+        gtk3.out
+        xdg-user-dirs
+        xdg-user-dirs-gtk
         baobab
         epiphany
         gnome-text-editor
@@ -20,7 +37,6 @@
         gnome-clocks
         gnome-console
         gnome-contacts
-        gnome-disk-utility
         gnome-font-viewer
         gnome-logs
         gnome-maps
@@ -34,5 +50,6 @@
         snapshot
         totem
         yelp
+        gnome-software
     ];
 }

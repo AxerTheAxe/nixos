@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
-    hm= {
+    programs.xwayland.enable = true;
+    hm = {
         services.cliphist.enable = true;
 
         home = {

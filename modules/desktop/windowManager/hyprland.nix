@@ -5,6 +5,7 @@
         ../fonts.nix
     ];
 
+    programs.hyprland.enable = true;
     hm = {
         wayland.windowManager.hyprland = {
             enable = true;

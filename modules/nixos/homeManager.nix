@@ -27,6 +27,6 @@
     home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        # backupFileExtension = "rebuild";
+        # backupFileExtension = "backup";
     };
 }

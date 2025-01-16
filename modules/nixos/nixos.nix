@@ -19,8 +19,7 @@
         isNormalUser = true;
         description = hostOptions.user.name;
 
-        # A password must be manually set with passwd
-        initialHashedPassword = "";
+	initialHashedPassword = "";
 
         extraGroups = [ "wheel" ];
     };
@@ -40,4 +39,6 @@
     programs.nano.enable = false;
 
     system.stateVersion = hostOptions.system.installVersion;
+
+    boot.supportedFilesystems = [ "bcachefs" ];
 }

@@ -37,6 +37,8 @@
 
             # Shift + control
             bindkey "\E[13;5u" autosuggest-accept
+
+            PS1='%~ -> '
         '';
     };
 }

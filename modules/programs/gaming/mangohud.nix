@@ -4,27 +4,26 @@
         enable = true;
 
         settings = {
-            # Have a setting somewhere that defines refresh rate, and set this to it
             fps_limit = 100;
 
-            gpu_stats = true;
+            af = 16;
+
+            no_display = true;
+            round_corners = true;
+
+            cpu_power = true;
+            cpu_temp = true;
             gpu_temp = true;
             gpu_power = true;
-            cpu_stats = true;
-            cpu_temp = true;
-            vram = true;
+            gpu_mem_temp = true;
             ram = true;
-            fps = true;
-            frametime = true;
-            vulkan_driver = true;
+            swap = true;
+
             arch = true;
-            frame_timing = true;
+            vulkan_driver = true;
             gamemode = true;
-            show_fps_limit = true;
-            round_corners = 10;
-            no_display = true;
-            toggle_hud = "Shift_L+F9";
-            toggle_fps_limit = "Shift_L+F10";
+            wine = true;
+            resolution = true;
         };
     };
 }
