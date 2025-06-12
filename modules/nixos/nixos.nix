@@ -19,9 +19,7 @@
         isNormalUser = true;
         description = hostOptions.user.name;
 
-	initialHashedPassword = "";
-
-        extraGroups = [ "wheel" ];
+        initialHashedPassword = "";
     };
 
     nix.settings.experimental-features = [
@@ -36,9 +34,8 @@
 
     # Skips the installation of unneeded packages
     environment.defaultPackages = [ ];
-    programs.nano.enable = false;
+    security.sudo.enable = lib.mkDefault false;
+    programs.nano.enable = lib.mkDefault false;
 
     system.stateVersion = hostOptions.system.installVersion;
-
-    boot.supportedFilesystems = [ "bcachefs" ];
 }

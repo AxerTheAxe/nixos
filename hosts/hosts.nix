@@ -3,7 +3,7 @@ let
         userName = "katherine";
         name = "Katherine Jamison";
         email = "axertheaxe@proton.me";
-        configDir = "/home/${userName}/Nixos";
+        configDir = "/home/${userName}/NixOS";
     };
 in
 {

@@ -1,4 +1,9 @@
-{ hostOptions, inputs, ... }:
+{
+    hostOptions,
+    inputs,
+    pkgs,
+    ...
+}:
 {
     # Install Neovim system wide
     imports = [ ../neovim.nix ];
@@ -17,6 +22,8 @@
         programs.nixvim = {
             enable = true;
 
+            nixpkgs.useGlobalPackages = true;
+
             defaultEditor = true;
             viAlias = true;
             vimAlias = true;
@@ -33,7 +40,15 @@
                     enable = true;
                     settings.highlight.enable = true;
                 };
+                markdown-preview.enable = true;
             };
+
+            extraPlugins = with pkgs.vimPlugins; [
+                {
+                    plugin = term-edit-nvim;
+                    config = ''lua require('term-edit').setup({prompt_end = '%$'})'';
+                }
+            ];
 
             opts = {
                 autochdir = true;
@@ -156,6 +171,12 @@
                 {
                     action = "<cmd>w<CR>";
                     key = "<leader>w";
+                    mode = "n";
+                }
+
+                {
+                    action = "<cmd>wq<CR>";
+                    key = "<leader>q";
                     mode = "n";
                 }
 

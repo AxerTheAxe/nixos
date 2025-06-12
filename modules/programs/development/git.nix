@@ -55,6 +55,7 @@
                     programs = {
                         git = {
                             signing.key = ssh.publicKey;
+                            signing.format = "ssh";
                             extraConfig.gpg.format = "ssh";
                         };
                         ssh = {

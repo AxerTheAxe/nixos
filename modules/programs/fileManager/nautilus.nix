@@ -13,7 +13,11 @@
             terminal = "kitty";
         };
     };
-    environment.systemPackages = [ pkgs.nautilus ];
+
+    environment.systemPackages = with pkgs; [
+        nautilus
+        unrar-free
+    ];
 
     # Required for trash
     services.gvfs.enable = true;
@@ -34,27 +38,33 @@
             text = "";
         };
 
-        systemd.user.services.gtk-bookmarks.Service.ExecStart =
-            let
-                name = "gtk-bookmarks";
-            in
-            pkgs.writeShellApplication {
-                inherit name;
-                runtimeInputs = with pkgs; [
-                    inotify-tools
-                    xdg-user-dirs-gtk
-                ];
-                text = ''
-                    rm -f ~/.config/gtk-3.0/bookmarks
-                    xdg-user-dirs-gtk-update
-                    sort -o ~/.config/gtk-3.0/bookmarks ~/.config/gtk-3.0/bookmarks
-                    dirs=$(find /mnt -mindepth 1 -maxdepth 1 -type d -exec echo "file://{}" \;)
-                    dirs="$dirs
-                    file:///"
-                    mkdir -p ~/.config/gtk-3.0
-                    echo "$dirs" >> ~/.config/gtk-3.0/bookmarks
-                '';
-            }
-            + "/bin/${name}";
+        systemd.user.services.gtk-bookmarks = {
+            Install.WantedBy = [
+                "default.target"
+                "graphical-session.target"
+            ];
+            Service.ExecStart =
+                let
+                    name = "gtk-bookmarks";
+                in
+                pkgs.writeShellApplication {
+                    inherit name;
+                    runtimeInputs = with pkgs; [
+                        inotify-tools
+                        xdg-user-dirs-gtk
+                    ];
+                    text = ''
+                        rm -f ~/.config/gtk-3.0/bookmarks
+                        xdg-user-dirs-gtk-update
+                        sort -o ~/.config/gtk-3.0/bookmarks ~/.config/gtk-3.0/bookmarks
+                        dirs=$(find /mnt -mindepth 1 -maxdepth 1 -type d -exec echo "file://{}" \;)
+                        dirs="$dirs
+                        file:///"
+                        mkdir -p ~/.config/gtk-3.0
+                        echo "$dirs" >> ~/.config/gtk-3.0/bookmarks
+                    '';
+                }
+                + "/bin/${name}";
+        };
     };
 }

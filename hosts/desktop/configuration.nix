@@ -9,7 +9,8 @@
         ../../modules/system/efi/boot.nix
         ../../modules/system/locale.nix
         ../../modules/system/network.nix
-        ../../modules/system/bluetooth.nix
+        # ../../modules/system/bluetooth.nix
+        ../../modules/system/doas.nix
 
         ../../scripts/nixosUpgrade.nix
 
@@ -18,18 +19,19 @@
         ../../modules/programs/shell/fastfetch.nix
         ../../modules/programs/textEditor/nixvim/nixvim.nix
         ../../modules/programs/utility/deskExec.nix
+        ../../modules/programs/development/man.nix
         ../../modules/programs/terminal/kitty.nix
         ../../modules/programs/fileManager/nautilus.nix
         ../../modules/programs/webBrowser/firefox.nix
+        ../../modules/programs/image/krita.nix
         ../../modules/programs/video/vlc.nix
         ../../modules/programs/video/obs.nix
+        ../../modules/programs/video/kdenlive.nix
         ../../modules/programs/communication/discord.nix
         ../../modules/programs/gaming/gaming.nix
-        ../../modules/programs/virualisation/virtManager.nix
+        # ../../modules/programs/virtualization/virtManager.nix
 
         ../../modules/desktop/xdg.nix
-        ../../modules/desktop/displayManager/sddm.nix
-        ../../modules/desktop/desktopEnvironment/plasma.nix
         ../../modules/desktop/windowManager/hyprland.nix
 
         # Configurable
@@ -39,21 +41,6 @@
         # Temporary
         ./stylix-temp.nix
     ];
-
-    # Make a wrapper script that launches games with addons only if they are available
-    hm.xdg.desktopEntries.prismlauncher = {
-        name = "prismlauncher";
-        exec = "gamemoderun mangohud --dlsym prismlauncher %U";
-        genericName = "minecraft";
-        settings.Keywords = "game;minecraft;mc";
-    };
-
-    hm.xdg.desktopEntries.steam = {
-        name = "steam";
-        exec = "gamemoderun mangohud steam %U";
-        genericName = "steam";
-        settings.Keywords = "game;valve;steam";
-    };
 
     audio = {
         enable = true;
@@ -91,16 +78,22 @@
 
     fileSystems =
         let
-            options = [
-                "users"
-                "nofail"
+            base_options = [
+                "rw"
                 "exec"
+                "noatime"
+                "nodiratime"
+            ];
+
+            external_options = [
+                "nofail"
             ];
         in
         {
             "/" = {
                 label = "ROOT";
                 fsType = "bcachefs";
+                options = base_options;
             };
 
             "/boot" = {
@@ -112,13 +105,13 @@
             "/mnt/games" = {
                 label = "GAMES";
                 fsType = "bcachefs";
-                options = options;
+                options = base_options ++ external_options;
             };
 
             "/mnt/wdb1" = {
                 label = "WDB1";
                 fsType = "ext4";
-                options = options;
+                options = base_options ++ external_options;
             };
         };
 
@@ -133,7 +126,8 @@
             "usbhid"
             "sd_mod"
         ];
+        kernel.sysctl."vm.swapiness" = 5;
 
-        kernelPackages = pkgs.linuxPackages_latest;
+        kernelPackages = pkgs.linuxPackages_lqx;
     };
 }

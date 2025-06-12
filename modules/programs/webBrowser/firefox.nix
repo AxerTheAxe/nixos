@@ -8,44 +8,48 @@
     hm.programs.firefox = {
         enable = true;
         profiles.${hostOptions.user.userName} = {
-            bookmarks = [
-                {
-                    toolbar = true;
-                    bookmarks = [
-                        {
-                            name = "Youtube";
-                            url = "https://www.youtube.com";
-                        }
+            bookmarks = {
+                force = true;
+                settings = [
+                    {
+                        name = "Bookmarks";
+                        toolbar = true;
+                        bookmarks = [
+                            {
+                                name = "Youtube";
+                                url = "https://www.youtube.com";
+                            }
 
-                        {
-                            name = "ProtonMail";
-                            url = "https://mail.proton.me";
-                        }
+                            {
+                                name = "ProtonMail";
+                                url = "https://mail.proton.me";
+                            }
 
-                        {
-                            name = "Gmail";
-                            url = "https://mail.google.com/mail/u/0/#inbox";
-                        }
+                            {
+                                name = "Gmail";
+                                url = "https://mail.google.com/mail/u/0/#inbox";
+                            }
 
-                        {
-                            name = "GitHub";
-                            url = "https://github.com";
-                        }
+                            {
+                                name = "Codeberg";
+                                url = "https://codeberg.org";
+                            }
 
-                        {
-                            name = "ChatGPT";
-                            url = "https://chatgpt.com";
-                        }
+                            {
+                                name = "GitHub";
+                                url = "https://github.com";
+                            }
 
-                        {
-                            name = "Minesweeper";
-                            url = "https://minesweeper.online";
-                        }
-                    ];
-                }
-            ];
+                            {
+                                name = "Minesweeper";
+                                url = "https://minesweeper.online";
+                            }
+                        ];
+                    }
+                ];
+            };
 
-            extensions = with inputs.firefox-addons.packages.${hostOptions.system.platform}; [
+            extensions.packages = with inputs.firefox-addons.packages.${hostOptions.system.platform}; [
                 ublock-origin
                 bitwarden
                 duckduckgo-privacy-essentials
@@ -57,7 +61,7 @@
 
             search = {
                 force = true;
-                default = "DuckDuckGo";
+                default = "ddg";
                 engines = {
                     "NixOS Options" = {
                         urls = [
@@ -143,9 +147,12 @@
                         definedAliases = [ "@pg" ];
                     };
 
-                    "Wikipedia (en)".metaData.hidden = true;
-                    "Bing".metaData.hidden = true;
-                    "Google".metaData.hidden = true;
+                    wikipedia.metaData.hidden = true;
+                    bing.metaData.hidden = true;
+                    google.metaData.hidden = true;
+                    ddg.metaData.hideOneOffButton = true;
+                    ebay.metaData.hideOneOffButton = true;
+                    amazon.metaData.hideOneOffButton = true;
                 };
             };
 
@@ -159,6 +166,7 @@
                 "browser.newtabpage.activity-stream.showSponsoredTopStories" = false;
                 "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
                 "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
+                "browser.newtabpage.activity-stream.showWeather" = false;
                 "browser.urlbar.showSearchSuggestionsFirst" = false;
                 "browser.urlbar.suggest.recentsearches" = false;
                 "browser.urlbar.suggest.bookmark" = false;
@@ -190,7 +198,7 @@
                 "datareporting.healthreport.uploadEnabled" = false;
                 "dom.security.https_only_mode" = true;
                 "network.trr.mode" = 3;
-                "browser.uiCustomization.state" = ''{"placements":{"widget-overflow-fixed-list":[],"unified-extensions-area":["_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action","ublock0_raymondhill_net-browser-action","_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action","jid1-zadieub7xozojw_jetpack-browser-action","_7a7a4a92-a2a0-41d1-9fd7-1e92480d612d_-browser-action","firefoxcolor_mozilla_com-browser-action"],"nav-bar":["back-button","forward-button","stop-reload-button","urlbar-container","downloads-button","unified-extensions-button"],"toolbar-menubar":["menubar-items"],"TabsToolbar":["tabbrowser-tabs","new-tab-button","alltabs-button"],"PersonalToolbar":["personal-bookmarks"]},"seen":["save-to-pocket-button","developer-button","_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action","jid1-zadieub7xozojw_jetpack-browser-action","_7a7a4a92-a2a0-41d1-9fd7-1e92480d612d_-browser-action","ublock0_raymondhill_net-browser-action","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action","firefoxcolor_mozilla_com-browser-action"],"dirtyAreaCache":["nav-bar","PersonalToolbar","TabsToolbar","toolbar-menubar","unified-extensions-area"],"currentVersion":20,"newElementCount":6}'';
+                "browser.uiCustomization.state" = ''{"placements":{"widget-overflow-fixed-list":[],"unified-extensions-area":["_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action","ublock0_raymondhill_net-browser-action","_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action","jid1-zadieub7xozojw_jetpack-browser-action","_7a7a4a92-a2a0-41d1-9fd7-1e92480d612d_-browser-action","firefoxcolor_mozilla_com-browser-action","_cb31ec5d-c49a-4e5a-b240-16c767444f62_-browser-action"],"nav-bar":["back-button","forward-button","stop-reload-button","urlbar-container","downloads-button","unified-extensions-button"],"toolbar-menubar":["menubar-items"],"TabsToolbar":["tabbrowser-tabs","new-tab-button","alltabs-button"],"vertical-tabs":[],"PersonalToolbar":["personal-bookmarks"]},"seen":["save-to-pocket-button","developer-button","_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action","jid1-zadieub7xozojw_jetpack-browser-action","_7a7a4a92-a2a0-41d1-9fd7-1e92480d612d_-browser-action","ublock0_raymondhill_net-browser-action","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action","firefoxcolor_mozilla_com-browser-action","_cb31ec5d-c49a-4e5a-b240-16c767444f62_-browser-action"],"dirtyAreaCache":["nav-bar","PersonalToolbar","TabsToolbar","toolbar-menubar","unified-extensions-area","vertical-tabs"],"currentVersion":20,"newElementCount":6}'';
             };
         };
     };

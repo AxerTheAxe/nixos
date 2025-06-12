@@ -13,6 +13,7 @@
         dotDir = ".config/zsh";
 
         autosuggestion.enable = true;
+        autocd = true;
         syntaxHighlighting.enable = true;
         enableCompletion = true;
 
@@ -31,14 +32,14 @@
                 zsh-nix-shell
             ];
 
-        initExtra = ''
+        initContent = ''
             # Shift + enter
             bindkey "\E[13;2u" autosuggest-execute
 
             # Shift + control
             bindkey "\E[13;5u" autosuggest-accept
 
-            PS1='%~ -> '
+            PS1='%2~ -> '
         '';
     };
 }

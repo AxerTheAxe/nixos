@@ -1,6 +1,7 @@
 {
     hostOptions,
     inputs,
+    lib,
     pkgs,
     ...
 }:
@@ -8,7 +9,7 @@
     imports = [ inputs."stylix-${hostOptions.channel}".nixosModules.stylix ];
 
     hm = {
-        imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
+        imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
         catppuccin = {
             enable = true;
@@ -17,16 +18,17 @@
             accent = "pink";
 
             gtk.icon.enable = true;
-            # kvantum.enable = true;
+            kvantum.enable = true;
         };
 
         qt = {
             enable = true;
-            platformTheme.name = "kvantum";
-            style.name = "kvantum";
+            platformTheme.name = lib.mkForce "kvantum";
+            style.name = lib.mkForce "kvantum";
         };
 
         stylix.targets.kitty.enable = false;
+        stylix.targets.firefox.profileNames = [ hostOptions.user.userName ];
 
         xdg.configFile."WebCord/Themes/mocha.theme".text = ''
             @import url("https://catppuccin.github.io/discord/dist/catppuccin-mocha-pink.theme.css");
@@ -63,4 +65,6 @@
             size = 16;
         };
     };
+
+    environment.sessionVariables.HYPRCURSOR_SIZE = 16;
 }

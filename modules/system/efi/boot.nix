@@ -17,5 +17,9 @@
                 editor = false;
             };
         };
+
+        supportedFilesystems = [ "bcachefs" ];
+
+        tmp.cleanOnBoot = true;
     };
 }

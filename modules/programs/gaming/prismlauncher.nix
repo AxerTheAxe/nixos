@@ -2,10 +2,11 @@
 {
     environment.systemPackages = [
         (pkgs.prismlauncher.override {
-            jdks = [
-                pkgs.jdk
-                pkgs.jdk8
-                pkgs.graalvm-ce
+            jdks = with pkgs; [
+                jdk
+                jdk8
+                jdk17
+                graalvm-ce
             ];
         })
     ];

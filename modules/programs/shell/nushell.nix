@@ -4,17 +4,15 @@
     ...
 }:
 {
+    imports = [ ./alias-nu.nix ];
     user.shell = pkgs.nushell;
     hm.programs = {
         nushell = {
             enable = true;
 
             shellAliases = config.hm.home.shellAliases;
-            configFile.text = ''
-                def disown [...command: string] {
-                    sh -c '"$@" </dev/null >/dev/null 2>/dev/null & disown' $command.0 ...$command
-                }
 
+            configFile.text = ''
                 $env.config = {
                     show_banner: false
                     keybindings: [

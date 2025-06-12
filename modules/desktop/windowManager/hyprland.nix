@@ -7,6 +7,7 @@
 
     programs.hyprland.enable = true;
     hm = {
+        home.packages = [ pkgs.hyprshot ];
         wayland.windowManager.hyprland = {
             enable = true;
 
@@ -58,6 +59,10 @@
                     numlock_by_default = true;
                     accel_profile = "flat";
                     follow_mouse = 2;
+
+                    # MAY CAUSE ISSUES WITH MOUSH INPUT
+                    # DISABLE IF HAVING ISSUES
+                    force_no_accel = true;
                 };
 
                 misc = {
@@ -69,6 +74,11 @@
 
                 dwindle = {
                     force_split = 2;
+                };
+
+                ecosystem = {
+                    no_update_news = true;
+                    no_donation_nag = true;
                 };
 
                 bind = [

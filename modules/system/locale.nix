@@ -1,9 +1,16 @@
 { hostOptions, ... }:
 {
-    # Use 24-hour clock
-    # Uses GB for clock only
-    i18n.extraLocaleSettings.LC_TIME = "en_GB.UTF-8";
+    i18n = {
+        defaultLocale = "en_DK.UTF-8";
+        extraLocaleSettings = {
+            LC_NUMERIC = "en_US.UTF-8";
+            LC_MONETARY = "en_US.UTF-8";
+            LC_COLLATE = "en_US.UTF-8";
+        };
+    };
 
     time.timeZone = hostOptions.system.timeZone;
-    services.timesyncd.enable = true;
+
+    # Better than sytemd-timesyncd
+    services.chrony.enable = true;
 }
