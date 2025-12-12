@@ -1,4 +1,12 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+{ pkgs, hostOptions, ... }:
+=======
 { pkgs, ... }:
+>>>>>>> 4b39ab6c3a3ed33a9b49020184eab3e250bdb149
+=======
+{ pkgs, ... }:
+>>>>>>> upstream/main
 {
     imports = [ ./alias.nix ];
 
@@ -10,7 +18,15 @@
 
     hm.programs.zsh = {
         enable = true;
+<<<<<<< HEAD
+<<<<<<< HEAD
+        dotDir = "/home/${hostOptions.user.userName}/.config/zsh";
+=======
         dotDir = ".config/zsh";
+>>>>>>> 4b39ab6c3a3ed33a9b49020184eab3e250bdb149
+=======
+        dotDir = ".config/zsh";
+>>>>>>> upstream/main
 
         autosuggestion.enable = true;
         autocd = true;

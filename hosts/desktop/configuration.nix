@@ -1,5 +1,152 @@
 { pkgs, ... }:
 {
+<<<<<<< HEAD
+<<<<<<< HEAD
+  imports = [
+    ../../modules/nixos/nixos.nix
+    ../../modules/nixos/homeManager.nix
+
+    ../../modules/system/amd/cpu.nix
+    ../../modules/system/amd/gpu.nix
+    ../../modules/system/efi/boot.nix
+    ../../modules/system/locale.nix
+    ../../modules/system/network.nix
+    ../../modules/system/doas.nix
+
+    ../../scripts/nixosUpgrade.nix
+
+    ../../modules/programs/shell/zsh.nix
+    #../../modules/programs/shell/zoxide.nix
+    ../../modules/programs/shell/fastfetch.nix
+    # ../../modules/programs/textEditor/nixvim/nixvim.nix
+    ../../modules/programs/textEditor/neovim.nix
+    ../../modules/programs/utility/deskExec.nix
+    ../../modules/programs/development/man.nix
+    #../../modules/programs/terminal/kitty.nix
+    ../../modules/programs/terminal/alacritty.nix
+    ../../modules/programs/fileManager/nautilus.nix
+    ../../modules/programs/webBrowser/firefox.nix
+    ../../modules/programs/image/krita.nix
+    ../../modules/programs/video/vlc.nix
+    ../../modules/programs/video/obs.nix
+    ../../modules/programs/video/kdenlive.nix
+    ../../modules/programs/communication/discord.nix
+    ../../modules/programs/gaming/gaming.nix
+    ../../modules/programs/gaming/razer.nix
+    ../../modules/programs/virtualization/virtManager.nix
+
+    ../../modules/desktop/xdg.nix
+    ../../modules/desktop/windowManager/hyprland.nix
+
+    # Configurable
+    ../../modules/audio/audio.nix
+    ../../modules/programs/development/git.nix
+
+    # Temporary
+    ./stylix-temp.nix
+  ];
+
+  services.flatpak.enable = false;
+  hardware.bluetooth.enable = false;
+
+  audio = {
+    enable = false;
+    outputs = [
+      {
+        name = "alsa_output.usb-Conexant_CONEXANT_USB_AUDIO_000000000000-00.analog-stereo";
+        volume = 85;
+        virtual = [
+          {
+            name = "primary";
+            volume = 75;
+            default = true;
+          }
+          {
+            name = "secondary";
+            volume = 85;
+          }
+        ];
+      }
+    ];
+  };
+
+  git = {
+    enable = true;
+    ssh =
+      let
+        keyFile = "~/.ssh/keys/mainkey";
+      in
+      {
+        enable = true;
+        publicKey = "${keyFile}.pub";
+        privateKey = keyFile;
+      };
+  };
+
+  fileSystems =
+    let
+      base_options = [
+        "rw"
+        "exec"
+        "noatime"
+        "nodiratime"
+      ];
+
+      external_options = [
+        "nofail"
+      ];
+    in
+    {
+      "/" = {
+        label = "ROOT";
+        fsType = "bcachefs";
+        options = base_options;
+      };
+
+      "/boot" = {
+        label = "BOOT";
+        fsType = "vfat";
+        options = [ "umask=0077" ];
+      };
+
+      "/mnt/games" = {
+        label = "GAMES";
+        fsType = "ext4";
+        options = base_options ++ external_options;
+      };
+
+      "/mnt/internal1" = {
+        label = "INTERNAL1";
+        fsType = "ext4";
+        options = base_options ++ external_options;
+      };
+    };
+
+  swapDevices = [ { label = "SWAP"; } ];
+
+  boot = {
+    # Generated from 'nixos-generate-config'
+    initrd.availableKernelModules = [
+      "nvme"
+      "xhci_pci"
+      "ahci"
+      "usbhid"
+      "sd_mod"
+    ];
+
+    kernelParams = [
+      "zswap.enabled=1"
+      "zswap.max_pool_percent=25" # 25% of 32GB is 8GB
+      "nowatchdog"
+      "modprobe.blacklist=iTCO_wdt"
+    ];
+
+    kernel.sysctl."vm.swapiness" = 10;
+    kernelPackages = pkgs.linuxPackages_zen;
+  };
+=======
+=======
+>>>>>>> upstream/main
     imports = [
         ../../modules/nixos/nixos.nix
         ../../modules/nixos/homeManager.nix
@@ -130,4 +277,8 @@
 
         kernelPackages = pkgs.linuxPackages_lqx;
     };
+<<<<<<< HEAD
+>>>>>>> 4b39ab6c3a3ed33a9b49020184eab3e250bdb149
+=======
+>>>>>>> upstream/main
 }
