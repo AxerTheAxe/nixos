@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 { pkgs, config, ... }:
 {
   hm.programs.obs-studio = {
@@ -18,19 +16,4 @@
   '';
 
   security.polkit.enable = true;
-=======
-=======
->>>>>>> upstream/main
-{ pkgs, ... }:
-{
-    hm.programs.obs-studio = {
-        enable = true;
-        plugins = with pkgs.obs-studio-plugins; [
-            obs-vkcapture
-        ];
-    };
-<<<<<<< HEAD
->>>>>>> 4b39ab6c3a3ed33a9b49020184eab3e250bdb149
-=======
->>>>>>> upstream/main
 }

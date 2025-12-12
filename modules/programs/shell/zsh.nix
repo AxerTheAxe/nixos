@@ -1,61 +1,45 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 { pkgs, hostOptions, ... }:
-=======
-{ pkgs, ... }:
->>>>>>> 4b39ab6c3a3ed33a9b49020184eab3e250bdb149
-=======
-{ pkgs, ... }:
->>>>>>> upstream/main
 {
-    imports = [ ./alias.nix ];
+  imports = [ ./alias.nix ];
 
-    user.shell = pkgs.zsh;
-    programs.zsh = {
-        enable = true;
-        enableGlobalCompInit = false;
-    };
+  user.shell = pkgs.zsh;
+  programs.zsh = {
+    enable = true;
+    enableGlobalCompInit = false;
+  };
 
-    hm.programs.zsh = {
-        enable = true;
-<<<<<<< HEAD
-<<<<<<< HEAD
-        dotDir = "/home/${hostOptions.user.userName}/.config/zsh";
-=======
-        dotDir = ".config/zsh";
->>>>>>> 4b39ab6c3a3ed33a9b49020184eab3e250bdb149
-=======
-        dotDir = ".config/zsh";
->>>>>>> upstream/main
+  hm.programs.zsh = {
+    enable = true;
+    dotDir = "/home/${hostOptions.user.userName}/.config/zsh";
 
-        autosuggestion.enable = true;
-        autocd = true;
-        syntaxHighlighting.enable = true;
-        enableCompletion = true;
+    autosuggestion.enable = true;
+    autocd = true;
+    syntaxHighlighting.enable = true;
+    enableCompletion = true;
 
-        plugins =
-            with pkgs;
-            let
-                pluginPackages =
-                    packages:
-                    map (pkg: {
-                        name = pkg.pname;
-                        src = pkg.src;
-                    }) packages;
-            in
-            pluginPackages [
-                zsh-autopair
-                zsh-nix-shell
-            ];
+    plugins =
+      with pkgs;
+      let
+        pluginPackages =
+          packages:
+          map (pkg: {
+            name = pkg.pname;
+            src = pkg.src;
+          }) packages;
+      in
+        pluginPackages [
+          zsh-autopair
+          zsh-nix-shell
+        ];
 
-        initContent = ''
-            # Shift + enter
-            bindkey "\E[13;2u" autosuggest-execute
+    initContent = ''
+      # Shift + enter
+      bindkey "\E[13;2u" autosuggest-execute
 
-            # Shift + control
-            bindkey "\E[13;5u" autosuggest-accept
+      # Shift + control
+      bindkey "\E[13;5u" autosuggest-accept
 
-            PS1='%2~ -> '
-        '';
-    };
+      PS1='%2~ -> '
+    '';
+  };
 }
